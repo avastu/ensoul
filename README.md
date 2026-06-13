@@ -9,8 +9,8 @@ text states the facts; *ensoul* breathes them into being.
 ```text
    ▤▤▤▤▤▤▤▤▤▤▤▤▤
    ▤▤▤▤▤▤▤▤▤▤▤
-   ▤▤▤▤▤▤▤▤▤▤▤▤▤▤   ─────▶           ◎
-   ▤▤▤▤▤▤▤▤▤▤▤▤                  ╶───┴───╴
+   ▤▤▤▤▤▤▤▤▤▤▤▤▤▤    ─────▶      ◎
+   ▤▤▤▤▤▤▤▤▤▤▤▤              ╶───┴───╴
    ▤▤▤▤▤▤▤▤▤▤▤
 your eyes slide off              it lands
 ```
@@ -84,12 +84,14 @@ balanced — the default
 
 wild — looser, stranger
 
-                \   |   /
-         gym     \  |  /     lunch · sam
-           ───────( ◉ )───────
-    the report   /  |  \    groceries
-                /   |   \
-                  call mom
+                        ░▒▓▒░
+                       ▒▓███▓▒
+                   ·              ·
+               ·                      ·
+           ·                              ·
+   ───┬───────────┬───────────┬───────────┬───────────┬───
+     gym      the report    lunch     groceries    call mom
+   morning                   noon                     night
 ```
 
 **the mode** — on demand, type `/ensoul` on whatever's in front of you. on automatic, you do nothing: every wall the agent sends comes back ensouled.
