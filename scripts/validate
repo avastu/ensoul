@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "yaml"
+
+root = File.expand_path("..", __dir__)
+skill = File.join(root, "skills", "ensoul")
+
+required = [
+  "SKILL.md",
+  "agents/openai.yaml",
+  "references/analytical-design.md",
+  "references/calibration-prompts.md",
+  "references/editorial-artifact-patterns.md",
+  "references/tufte-principles.md",
+  "references/visual-language-research-communication.md",
+  "references/visual-primitives.md"
+]
+
+missing = required.reject { |path| File.file?(File.join(skill, path)) }
+unless missing.empty?
+  warn "Missing required files:"
+  missing.each { |path| warn "  - #{path}" }
+  exit 1
+end
+
+skill_yaml = File.read(File.join(skill, "SKILL.md")).split(/^---\s*$/, 3)[1]
+metadata = YAML.safe_load(skill_yaml)
+unless metadata["name"] == "ensoul"
+  warn "Expected SKILL.md name: ensoul, got: #{metadata["name"].inspect}"
+  exit 1
+end
+
+YAML.load_file(File.join(skill, "agents/openai.yaml"))
+
+body = File.read(File.join(skill, "SKILL.md"))
+unless body.include?("visual artifacts for felt understanding")
+  warn "SKILL.md is missing the public positioning phrase"
+  exit 1
+end
+
+unless body.include?("Concrete Transformation Gate")
+  warn "SKILL.md is missing the Concrete Transformation Gate"
+  exit 1
+end
+
+unless body.include?("before/after")
+  warn "SKILL.md must teach before/after transformation as a default move"
+  exit 1
+end
+
+puts "ensoul validation ok"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ensoul"
+  short_description: "Visual artifacts for felt understanding"
+  default_prompt: "Use $ensoul to turn this complex topic into a bounded visual artifact people can feel and understand."
