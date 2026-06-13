@@ -2,14 +2,17 @@
 
 *ensoul* · verb · to imbue with soul
 
-**for the moment an agent sends you more than your eyes can hold.**
+**for the moment an agent sends you a wall of text and your eyes start to glaze over.**
 
-a wall of text states the facts; *ensoul* breathes them into being.
+text states the facts; *ensoul* breathes them into being.
 
 ```text
-       ▤  ──────────▶  ◎
-   a flat wall          a living shape
-   your eyes skim       you take in at a glance
+   ▤▤▤▤▤▤▤▤▤▤▤▤▤
+   ▤▤▤▤▤▤▤▤▤▤▤
+   ▤▤▤▤▤▤▤▤▤▤▤▤▤▤   ─────▶           ◎
+   ▤▤▤▤▤▤▤▤▤▤▤▤                  ╶───┴───╴
+   ▤▤▤▤▤▤▤▤▤▤▤
+your eyes slide off              it lands
 ```
 
 ensoul is a skill for Codex, Claude, and other agents. point it at a wall of text; it hands back one small visual — a card, a trail, a map — instead of another paragraph.
@@ -58,7 +61,7 @@ then help me configure it:
  • show me something I made recently, rendered three ways
    (plain, balanced, wild) — so I can pick how I like mine
  • ask whether to run when I type /ensoul, or automatically
- • remember my answers
+ • remember my answers globally, so they hold across all my projects
 ```
 
 it configures by showing, not asking — it renders something you actually made at each setting, and you keep the one that fits. here's the idea on an ordinary day; at install you'd see it on *your* own work:
@@ -71,26 +74,22 @@ plain — words, a few marks
    on the way home, and call mom tonight.
 
 balanced — the default
-   ┌─────── today ────────┐
-   │ ✓ gym               │
-   │ ◑ the report   (now) │
-   │ · lunch with sam     │
-   │ · groceries         │
-   │ · call mom          │
-   └──────────────────────┘
+   ┌─ today ─────────────
+   │  ✓  gym
+   │  ◑  the report   (now)
+   │  ·  lunch with sam
+   │  ·  groceries
+   │  ·  call mom
+   └─────────────────────
 
 wild — looser, stranger
-   morning
-      ●  gym
-       ╲
-        ●  the report
-       ╱
-      ●  lunch · sam
-       ╲
-        ●  groceries
-       ╱
-      ●  call mom
-   night
+
+                \   |   /
+         gym     \  |  /     lunch · sam
+           ───────( ◉ )───────
+    the report   /  |  \    groceries
+                /   |   \
+                  call mom
 ```
 
 **the mode** — on demand, type `/ensoul` on whatever's in front of you. on automatic, you do nothing: every wall the agent sends comes back ensouled.
