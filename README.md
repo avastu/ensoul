@@ -12,7 +12,7 @@ text states the facts; *ensoul* breathes them into being.
    ▤▤▤▤▤▤▤▤▤▤▤▤▤▤    ─────▶      ◎
    ▤▤▤▤▤▤▤▤▤▤▤▤              ╶───┴───╴
    ▤▤▤▤▤▤▤▤▤▤▤
-your eyes slide off          it lands
+your eyes slide off           it lands
 ```
 
 ensoul is a skill for Codex, Claude, and other agents. point it at a wall of text; it hands back one small visual — a card, a trail, a map — instead of another paragraph.
