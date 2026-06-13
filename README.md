@@ -1,6 +1,6 @@
 # ensoul
 
-*ensoul* · verb · to put soul into
+*ensoul* · verb · to imbue with soul
 
 **for the moment an agent sends you more than your eyes can hold.**
 
