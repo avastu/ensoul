@@ -2,9 +2,9 @@
 
 *ensoul* · verb · to put a soul into.
 
-**For the moment an agent sends you more than your eyes can hold.**
+**for the moment an agent sends you more than your eyes can hold.**
 
-A wall of text states the facts; Ensoul gives them a shape you can take in at a glance.
+a wall of text states the facts; *ensoul* breathes them into being.
 
 ```text
        ▤  ──────────▶  ◎
@@ -12,90 +12,98 @@ A wall of text states the facts; Ensoul gives them a shape you can take in at a 
    your eyes skim       you take in at a glance
 ```
 
-Ensoul is a skill for Codex, Claude, and other agents. Point it at a wall of text; it hands back one small visual — a card, a trail, a map — instead of another paragraph.
+ensoul is a skill for Codex, Claude, and other agents. point it at a wall of text; it hands back one small visual — a card, a trail, a map — instead of another paragraph.
 
-## See it work
+## see it work
 
-The agent wrote you eight sentences. Your eyes slide off:
+you asked for a weekend in Lisbon. the assistant sent back a wall:
 
 ```text
-BEFORE — what the agent sent
-"Okay! Finished the refactor. Found three spots where token-
- refresh was duplicated, extracted a helper. Session store
- wasn't invalidated on logout — latent bug — fixed that too.
- CI flagged a flaky timeout; traced it to a seeding race and
- fixed it. Remaining: staging deploy pending review, and I
- left the rate-limiter alone — felt out of scope..."
+before — what the assistant sent
+"sure! so for a weekend in Lisbon there's honestly a lot you
+ could do. friday evening i'd just get settled — Alfama is a
+ lovely old neighborhood, full of character, and there are
+ tascas right there for dinner. saturday, start with pastéis
+ de nata (the famous egg tarts!), walk up to São Jorge castle
+ for the views, then ride tram 28 — touristy but worth it.
+ saturday night you have to do fado, the traditional music —
+ but book ahead or you won't get in. sunday, Belém for the
+ tower and monastery, lunch by the river, then the airport.
+ oh, and rain's likely saturday, so bring a layer!"
 ```
 
 ```text
-AFTER — /ensoul
-┌──────────── AUTH REFACTOR ─────────────┐
-│ ✓ done     dedup token-refresh logic   │
-│ ✓ done     fix logout session leak     │
-│ ✓ done     trace + fix flaky CI race   │
-│ ~ open     staging · needs review      │
-│ ✕ skipped  rate-limiter (out of scope) │
-└────────────────────────────────────────┘
+after — /ensoul
+
+   lisbon · a weekend
+
+   fri ──●  arrive · alfama · tasca dinner
+         │
+   sat ──●  pastéis · são jorge · tram 28
+         │   ◎ fado at night — ⚠ book ahead
+         │
+   sun ──●  belém · tower + monastery → lunch → airport
+
+   ⚠ rain likely saturday · bring a layer
 ```
 
-## Install
+## install
 
-Paste this to your agent:
+paste this to your agent:
 
 ```text
-Install the ensoul skill from https://github.com/avastu/ensoul —
-clone it and link skills/ensoul into my skills directory. Then set it
-up from my own work: take something I touched recently — a transcript,
-a diff, my project's state — and show it rendered three ways (plain,
-balanced, wild) so I can pick my dial from my own material. Then ask
-whether to run on demand (/ensoul) or automatically on every wall of
-text. Remember my choices.
+set up the ensoul skill from https://github.com/avastu/ensoul.
+
+then help me configure it:
+ • show me something I made recently, rendered three ways
+   (plain, balanced, wild) — so I can pick how I like mine
+ • ask whether to run when I type /ensoul, or automatically
+ • remember my answers
 ```
 
-It configures by showing, not asking: it renders something you actually worked on at each setting, and you choose the one that fits. Below is the idea on a sample feature — at install you'd see it on *your* code:
+it configures by showing, not asking — it renders something you actually made at each setting, and you keep the one that fits. here's the idea on an ordinary day; at install you'd see it on *your* own work:
 
-**The dial** — a shipped feature and the layers under it, three ways:
+**the dial** — your day, three ways:
 
 ```text
 plain — words, a few marks
-   Search shipped: the typeahead users see, debounced queries
-   underneath, a fresh index with ✓ 120 tests, all on Elasticsearch.
+   today: gym, then the report, lunch with sam, groceries
+   on the way home, and call mom tonight.
 
 balanced — the default
-   ┌──────── SEARCH · shipped ────────┐
-   │ ▲ visible   instant typeahead    │
-   │ · layer     debounced queries    │
-   │ ▤ data      a fresh index        │
-   │ ✓ proof     120 tests, green     │
-   │ ◆ base      on Elasticsearch     │
-   └──────────────────────────────────┘
+   ┌─────── today ────────┐
+   │ ✓ gym               │
+   │ ◑ the report   (now) │
+   │ · lunch with sam     │
+   │ · groceries         │
+   │ · call mom          │
+   └──────────────────────┘
 
-wild — an actual temple
-              ▲  typeahead
-            ╱   ╲
-          ╱       ╲
-        ╱───────────╲
-        │ debounced │
-        ╞═══════════╡
-        ║   ║   ║   ║
-        ║   ║   ║   ║
-        ║   ║   ║   ║
-     ═══╧═══╧═══╧═══╧═══
-       index · 120 tests
-     ▟▓▓ Elasticsearch ▓▓▙
+wild — looser, stranger
+   morning
+      ●  gym
+       ╲
+        ●  the report
+       ╱
+      ●  lunch · sam
+       ╲
+        ●  groceries
+       ╱
+      ●  call mom
+   night
 ```
 
-*A temple fits because the feature really is a stack: the typeahead users see crowns the spire, debounce is the lintel, the columns are the index and its 120 tests, and it all rests on Elasticsearch — the visible thing standing on what holds it up.*
+**the mode** — on demand, type `/ensoul` on whatever's in front of you. on automatic, you do nothing: every wall the agent sends comes back ensouled.
 
-**The mode** — on demand, type `/ensoul` on whatever's in front of you. On automatic, you do nothing: every wall the agent sends comes back ensouled.
-
-## A note on honesty
-
-Ensoul keeps the evidence next to the claim, and won't mark something settled when it isn't:
+## what it balances
 
 ```text
-   ~ 94% confident · n=3, 1 review
+               truth
+                 △
+                ╱ ╲
+               ╱ ◎ ╲
+              ╱     ╲
+       beauty ─────── goodness
 ```
 
-So a number can't quietly look more sure than what's behind it.
+every ensoul stands on all three. drop one and it tips: pretty but false, true but unreadable, or true but manipulative.
