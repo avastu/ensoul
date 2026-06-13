@@ -1,4 +1,4 @@
-# Ensoul
+# ensoul
 
 *ensoul* · verb · to put a soul into.
 
