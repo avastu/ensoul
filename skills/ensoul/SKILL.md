@@ -164,6 +164,15 @@ Use this mode to:
 - create one dominant unforgettable image before explaining anything;
 - keep a hidden skeleton of integrity: symbols still mean something, and the artifact still reveals a real structure.
 
+**Use the whole ASCII/Unicode palette — most wild artifacts fail by being timid (a few lines and scattered dots).** Reach for:
+- shading & depth: `░ ▒ ▓ █` for glow, fade, weight, distance; gradients that fill space
+- mass & silhouette: `▀ ▄ ▌ ▐ ■ ◣ ◢ ◤ ◥ ▙ ▟` — build solid forms, not just outlines
+- texture & grain: braille `⠿ ⣿`, stipple fields, scatter, hatching `╱╱╱ ░░░`
+- geometry & light: `◉ ◔ ◑ ● ○ ✦ ✧ ❍ ✺ ⬡` — cells, stars, orbits, suns
+- figuration: actually **draw the thing** — a sun, a tide, a creature, a map, a machine — and render the content into its body, not beside it.
+
+Density is allowed and often better than space: fill the frame, let one textured shape dominate. Negative space is a tool, not a rule — a sparse scatter of dots is the safe version of wild. Pick a material (light, water, mass, growth, circuitry) and commit the whole image to it.
+
 Do not sand off the interesting edge just because the result may be confusing. In this mode, failure is allowed if the failure teaches taste. The three loads still apply: even a wild artifact must not lie (truth), must intensify rather than decorate (beauty), and must not manipulate or wound the person it is for (goodness).
 
 Spaciousness means air inside a bounded visual window, not making the user scroll through emptiness. Prefer one contained frame with tension, silence, and negative space over a tall artifact that disperses attention.
