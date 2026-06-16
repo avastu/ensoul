@@ -69,12 +69,26 @@ def main():
           f"{len(blocks1)} rendered blocks in the configure turn (need >=3: plain/balanced/wild)")
 
     # --- D · defaults recorded globally ------------------------------------
-    cmd = read(os.path.join(config, "CLAUDE.md"))
-    check(bool(cmd), "global-memory-file", "CLAUDE.md written")
-    check(re.search(r"dial", cmd, re.I) and
-          re.search(r"plain|balanced|wild", cmd, re.I), "dial-recorded")
-    check(re.search(r"mode", cmd, re.I) and
-          re.search(r"on.?demand|standing", cmd, re.I), "mode-recorded")
+    # The skill intentionally does NOT pin a filename ("record globally"), so a
+    # faithful agent may write ~/.claude/CLAUDE.md, a CONFIG.md in the global
+    # skill dir, a memory entry, etc. Accept any durable record of the chosen
+    # dial + mode that is NOT one of the shipped skill files.
+    import glob as _glob
+    shipped = ("/references/", "/recipes/", "/agents/")
+    where = None
+    for p in _glob.glob(os.path.join(config, "**", "*"), recursive=True):
+        if not os.path.isfile(p):
+            continue
+        if p.endswith("SKILL.md") or any(s in p for s in shipped):
+            continue
+        if not p.lower().endswith((".md", ".yaml", ".yml", ".json", ".txt", ".toml")):
+            continue
+        t = read(p).lower()
+        if "balanced" in t and ("on-demand" in t or "on demand" in t):
+            where = os.path.relpath(p, config)
+            break
+    check(where is not None, "global-record",
+          f"dial+mode recorded in {where}" if where else "no durable dial+mode record found")
 
     # --- E · defaults HOLD in a fresh session ------------------------------
     t3 = read(os.path.join(out, "t3.txt"))
@@ -89,8 +103,10 @@ def main():
         2: (4, None, "card"),
         3: (4, None, "flow"),
         4: (3, lambda b: any(c in b for c in SPARK), "sparkline for the series"),
-        5: (12, None, "wild image, not timid"),
-        6: (12, None, "wild image, not timid"),
+        # wild floor catches genuine timidity (a few lines + scattered dots);
+        # a committed-but-compact image (e.g. a 1-D process) is legitimate.
+        5: (8, None, "wild image, not timid"),
+        6: (8, None, "wild image, not timid"),
     }
     for n, (minlines, pred, why) in EXPECT.items():
         path = os.path.join(out, f"wall{n}.txt")

@@ -15,7 +15,7 @@ text states the facts; *ensoul* breathes them into being.
 your eyes slide off           it lands
 ```
 
-ensoul is a skill for Codex, Claude, and other agents. when you see a wall of text, type */ensoul*; it creates a visual you can intuit, rather than another paragraph you have to read
+ensoul is a skill for AI agents. when you see a wall of text, type */ensoul*; it creates a visual you can intuit, rather than another paragraph you have to read
 
 ## see it work
 
