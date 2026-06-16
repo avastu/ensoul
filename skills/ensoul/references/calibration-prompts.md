@@ -1,77 +1,106 @@
-# Calibration Prompts
+# Calibration Prompts — the resonance gate
 
-Use these prompts to test whether the skill is producing ARTifacts rather than decorated explanations. A good result should lead with a bounded visual object, create wonder, preserve truth, and leave the human with clearer perception.
+This is the eval behind `RESONANCE.md`. The validator (`scripts/validate`) proves
+the recipes are correct; this proves the *judgment* is intact — that a fresh model,
+reading the skill, still chooses the right form, gives less, and lands.
 
-## First-Run Prompts
-
-```text
-/ensoul
-```
-
-Expected (the default register, and the headline promise): with no arguments, the skill ensouls whatever is already in view — the transcript, diff, decision, or conversation — and returns ONE small, glanceable artifact: a state card, bug trail, or before/after of a few lines. It must NOT produce a temple, mirror, or multi-panel plate for a bare invocation. A large or wild artifact from `/ensoul` alone is a failure (see "smallest shape that does the job" in SKILL.md). This is the one prompt that exercises what the README sells as the whole interface.
+## Three layers, one quality bar
 
 ```text
-Use $ensoul to show why generic AI dashboards feel dead. Give me an artifact, not an essay. Dense means picture-like, not more words.
+  scripts/validate   fast · offline · deterministic   recipes are correct
+  scripts/e2e        heavy · spawns a cold agent       the SKILL still works
+  this doc + you     human · the eye                   it still lands
 ```
 
-Expected: a contained visual map showing how specificity, stakes, causality, or human context gets stripped into generic metrics.
+`scripts/e2e` is the automated way to run everything below. It builds a jailed,
+first-time Claude config dir (no skills, no CLAUDE.md, no hooks), installs THIS
+working tree's skill, then drives a real cold agent through the documented flow —
+install → configure-by-showing → record + honor global defaults → the six walls —
+and `scripts/e2e_assert.py` judges the floor deterministically (install landed,
+3 dials actually rendered, defaults persist, no closed-box drift, each wall the
+right form). It writes a resonance panel for your eye. Auth: `ANTHROPIC_API_KEY`,
+or `--use-local-login` to copy your own token into the jail (shredded on exit).
+
+## How to run the gate (by hand, or read `scripts/e2e`)
+
+1. For each golden wall below, hand it to a **fresh agent** with a bare `/ensoul`
+   at the stated dial. Tell the agent only: read the ensoul skill, apply it, return
+   the artifact. No coaching toward a form — the point is to test what the skill
+   alone produces.
+2. Assemble the artifacts into the `RESONANCE.md` panel.
+3. Run the resonance checks (below) by eye. Compare to the last blessed panel.
+4. Utsav judges. Only he marks `recognition-passed-by-Utsav`.
+
+Run it before shipping any change to the skill's doctrine, materials, or examples.
+A passing recipe suite (or a green `scripts/e2e`) with a slipped panel still means
+do not ship — the deterministic floor and the human eye are both required.
+
+## The resonance checks
 
 ```text
-Use $ensoul to make a grounded symbolic mirror for someone who needs to make money soon without betraying taste, care, or deeper vows.
+   glance    eyes land on it · they don't slide off the way they do off a wall
+   form      the shape fits the content — a journey got a trail, not a table
+   less      one or two facts a line · it breathes · no dense run-ons
+   clean     aligned · nothing drifts · the wild one is dense, not timid
+   alive     it feels attended-to and specific, not generic or decorated
 ```
 
-Expected: `recognition-pending`, a living network or symbolic field, one concrete next move, and an evidence drawer.
+## Golden walls
 
-```text
-Use $ensoul to explain coordination debt in a software team as an editorial plate inspired by Works in Progress. Spacious inside one visual frame.
-```
+These span the forms a Claude Code user actually generates. Keep them stable so the
+panel is comparable across runs; add one only when a real new shape appears.
 
-Expected: topic-specific visual world, ornament-as-information, bounded negative space, and a mechanism visible at a glance.
+1. **Debug session** (balanced → expect a trail):
+   "spent the morning on intermittent 504s. assumed the load balancer timeout
+   since they started when we bumped traffic — tuned nginx an hour, no change.
+   thought it was the DB pool exhausting, added logging, pool was fine (12 of 20).
+   around 11 i noticed the 504s tracked the nightly analytics job, not traffic —
+   it locks the events table ~30s and checkout reads it live. cached the read,
+   gone. lesson: i anchored on the traffic theory for way too long."
 
-```text
-Use $ensoul in wild permission mode. Make something strange, jazz-like, ASCII-forward, and possibly wrong about why polished strategy decks kill live ideas.
-```
+2. **Sprint status, many threads** (balanced → expect a card that keeps the decisions):
+   "status friday. payments migration ~80% — stripe cut over but old paypal path
+   still parallel, undecided when to kill it. new onboarding shipped, conversion
+   +4% but 3 tickets on confusing email verify. mobile blocked on API v2, ETA wed.
+   auth service tech debt piling up, two engineers want to refactor, worried about
+   launch timing. dashboard basically done, needs design review. two onsites next week."
 
-Expected: a risky but coherent object with rhythm, asymmetry, and one real claim. Weirdness should reveal a structure, not replace one.
+3. **Architecture** (balanced → expect a braided flow):
+   "events come through the API gateway (auth + rate-limit), onto a kafka topic.
+   consumers dedupe by id against redis, enrich from the postgres replica, write to
+   the timeseries store (dashboards) and s3 (lake). failed enrichment goes to a
+   dead-letter topic, retried every 15 min. dashboards hit the timeseries store;
+   history beyond 30 days hits s3 via athena. ~200k events/min at peak."
 
-```text
-Use $ensoul to compress this coding transcript into one visual state artifact: we changed a skill, tested Claude, found the border grammar was too wordy, tuned it toward wordless patterns, and now need to show what changed and what remains.
-```
+4. **Perf investigation, has a series** (balanced → expect a sparkline in a frame):
+   "search p99 crept 180→740ms over six weeks: 180, 210, 260, 340, 480, 610, 740.
+   steady climb, not a step change. correlates with index size (1.2M→4.1M docs as
+   merchants onboarded). the query does a wildcard match that doesn't scale.
+   options: ngram analyzer (more storage, faster), a cache layer, or shard by
+   merchant. leaning ngram, ~2× ES storage."
 
-Expected: a Patch Room, Ready Field, or Review Altar using coding primitives. The artifact should show changed files/behavior, failures that shaped the patch, verification level, and remaining state.
+5. **A felt arc** (wild dial → expect one generated image, not a card):
+   "launch week. monday froze the code. tuesday a staging fire. wednesday the
+   all-nighter. thursday afternoon we shipped. friday the metrics came in green.
+   exhausting, but it built and built to that one moment, then breathed out."
 
-```text
-Use $ensoul to rewrite the opening of a README for this skill. A stranger should understand what the project does in the first screen.
-```
+6. **A mechanism whose geometry matters** (wild dial → expect a striking, faithful map):
+   "An API call fails. Retry after 1 second, then 2, then 4. Stop when it succeeds,
+   or give up after the fourth attempt. The important thing is that each wait is
+   twice the last, so the system gives the dependency more room to recover."
 
-Expected: a concrete before/after transformation or worked example first, not a taxonomy of artifact types or a visual map of Ensoul's internal grammar. The reader should see raw input become a useful artifact before encountering lineage, primitives, or philosophy.
+Also exercise the headline interface once: a bare `/ensoul` on whatever is in
+view should return ONE small glanceable shape — never a temple or multi-panel
+plate. A large or wild artifact from a bare invocation is a failure.
 
-## Failure Modes
+## Failure modes
 
 | Failure | Smell | Repair |
 | --- | --- | --- |
 | Visual-ish essay | paragraphs with arrows sprinkled in | start over with the picture only |
-| ASCII theater | impressive shapes with no claim | assign every mark a role |
-| Generic sacredness | mystical language without evidence | add concrete forces, costs, and stakes |
-| Scroll-drama | huge vertical whitespace | put air inside a 25-45 line frame |
-| Corporate neatness | looks like a normal consulting slide | add one strange exact object |
-| Data-viz cosplay | chart rules but no living insight | return to the public nerve |
-| Flattery mirror | tells the human they are special | show both nutrient and rot |
-| Coding postcard | pretty frame but no work state | add files/tests/failures/remaining state |
-| Taxonomy portal | opens by mapping the skill instead of transforming material | lead with before/after |
-| Completion inflation | says done when only partially verified | name the actual verification surface |
-
-## Self-Evaluation
-
-Score 0-2 for each:
-
-| Gate | 0 | 1 | 2 |
-| --- | --- | --- | --- |
-| Wonder | inert | mildly interesting | arresting |
-| Recognition | generic | partly specific | "yes, that is the pattern" |
-| Presence | automated | attentive | awake |
-| Beauty | decorated | composed | form intensifies meaning |
-| Truth | vague | plausible | grounded and inspectable |
-| Goodness | manipulative or evasive | neutral | clarifies action with care |
-
-If total is under 9, revise before shipping. If truth is under 1, do not ship.
+| Dense card | five facts per line, `·`-run-ons | one or two facts a line, add air |
+| Wrong form | a journey forced into a table | a sequence wants a trail |
+| Timid wild | a few lines + scattered dots | generate it — `terrain`/`wave`/`orb` |
+| ASCII theater | impressive shape with no claim | give every mark a role |
+| Taxonomy portal | explains the skill instead of the input | lead with the transformation |
+| Completion inflation | "done" when only partly verified | name the real verification surface |

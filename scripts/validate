@@ -12,9 +12,11 @@ required = [
   "references/analytical-design.md",
   "references/calibration-prompts.md",
   "references/editorial-artifact-patterns.md",
+  "references/materials-gallery.md",
   "references/tufte-principles.md",
   "references/visual-language-research-communication.md",
-  "references/visual-primitives.md"
+  "references/visual-primitives.md",
+  "recipes/render.py"
 ]
 
 missing = required.reject { |path| File.file?(File.join(skill, path)) }
@@ -47,6 +49,15 @@ end
 unless body.include?("before/after")
   warn "SKILL.md must teach before/after transformation as a default move"
   exit 1
+end
+
+# Run the deterministic recipe tests — the generators must stay correct.
+test_file = File.join(skill, "recipes", "test_render.py")
+if File.file?(test_file)
+  unless system("python3", test_file)
+    warn "recipe tests failed (recipes/test_render.py)"
+    exit 1
+  end
 end
 
 puts "ensoul validation ok"

@@ -1,0 +1,192 @@
+#!/usr/bin/env bash
+#
+# ensoul end-to-end acceptance test — the lived-install quality bar.
+#
+#   scripts/validate   fast · offline · deterministic   (recipes are correct)
+#   scripts/e2e        heavy · spawns a fresh agent      (the SKILL still works)  <- this
+#   RESONANCE.md       human · the eye                   (it still lands)
+#
+# It builds a throwaway, jailed Claude config dir (no skills, no CLAUDE.md, no
+# hooks — a genuinely first-time user), installs THIS working tree's skill into
+# it, then drives a real cold agent through the documented flow:
+#
+#   1 install from source + self-validate
+#   2 configure BY SHOWING — render the user's material at all 3 dials inline
+#   3 record dial + mode globally
+#   4 a brand-new session must HONOR those defaults without re-asking
+#   5 six calibration walls, each through its own virgin agent
+#
+# then scripts/e2e_assert.py judges the floor deterministically and a resonance
+# panel is written for the human eye. Run before shipping any change to the
+# skill's doctrine, materials, or examples.
+#
+# Auth (the jail can't read your keychain — custom config dirs don't):
+#   ANTHROPIC_API_KEY=sk-...  scripts/e2e            # clean: API billing
+#   scripts/e2e --use-local-login                    # copy your local Claude
+#                                                    # token into the jail (you
+#                                                    # authorize it; shredded on
+#                                                    # teardown). LOCAL ONLY.
+# Flags:
+#   --use-local-login   export the macOS keychain Claude token into the jail
+#   --keep              don't tear the sandbox down (inspect out/, then rm -rf)
+#   --configure-only    stop after step 4 (fast harden check; skip the 6 walls)
+#
+set -euo pipefail
+
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
+USE_LOCAL_LOGIN=0; KEEP=0; CONFIGURE_ONLY=0
+for a in "$@"; do case "$a" in
+  --use-local-login) USE_LOCAL_LOGIN=1 ;;
+  --keep) KEEP=1 ;;
+  --configure-only) CONFIGURE_ONLY=1 ;;
+  -h|--help) sed -n '2,40p' "$0"; exit 0 ;;
+  *) echo "unknown flag: $a" >&2; exit 2 ;;
+esac; done
+
+command -v claude >/dev/null || { echo "claude CLI not on PATH" >&2; exit 127; }
+
+SB="$(mktemp -d "${TMPDIR:-/tmp}/ensoul-e2e.XXXXXX")"
+CFG="$SB/home/.claude"
+mkdir -p "$CFG/skills" "$SB/proj" "$SB/source" "$SB/out"
+
+cleanup() {
+  # ALWAYS shred any copied credential, even on error/interrupt
+  [ -f "$CFG/.credentials.json" ] && rm -P "$CFG/.credentials.json" 2>/dev/null || true
+  if ((KEEP)); then echo "sandbox kept: $SB (remember: rm -rf when done)"; else rm -rf "$SB"; fi
+}
+trap cleanup EXIT INT TERM
+
+echo "jail: $SB"
+
+# --- onboarding stub so headless doesn't hit first-run prompts (no secrets) ---
+python3 - "$SB" <<'PY'
+import json, sys, os
+sb = sys.argv[1]
+real = {}
+p = os.path.expanduser("~/.claude.json")
+if os.path.isfile(p):
+    try: real = json.load(open(p))
+    except Exception: pass
+stub = {
+  "hasCompletedOnboarding": True,
+  "hasCompletedClaudeInChromeOnboarding": True,
+  "lastOnboardingVersion": real.get("lastOnboardingVersion", "0.2.126"),
+  "numStartups": 5, "theme": "dark",
+  "firstStartTime": real.get("firstStartTime"),
+  "userID": real.get("userID"),
+  "oauthAccount": real.get("oauthAccount"),
+}
+for f in (f"{sb}/home/.claude.json", f"{sb}/home/.claude/.claude.json"):
+    json.dump(stub, open(f, "w"))
+PY
+
+# --- auth -------------------------------------------------------------------
+if [ -n "${ANTHROPIC_API_KEY:-}" ]; then
+  echo "auth: ANTHROPIC_API_KEY (clean)"
+elif ((USE_LOCAL_LOGIN)); then
+  # Operator-authorized local convenience: copy YOUR Claude token into the jail.
+  # Written to disk, never printed; shredded on teardown. Never use in CI.
+  if security find-generic-password -s "Claude Code-credentials" -w \
+       > "$CFG/.credentials.json" 2>/dev/null; then
+    chmod 600 "$CFG/.credentials.json"
+    echo "auth: local Claude token copied into jail (will be shredded)"
+  else
+    echo "auth: --use-local-login failed (no keychain item)" >&2; exit 1
+  fi
+else
+  echo "no auth: set ANTHROPIC_API_KEY, or pass --use-local-login" >&2; exit 1
+fi
+
+# --- snapshot THIS working tree (uncommitted included) as the install source --
+rsync -a --exclude='.git' --exclude='.DS_Store' --exclude='__pycache__' \
+  "$REPO/" "$SB/source/"
+( cd "$SB/source" && git init -q \
+  && git -c user.name=e2e -c user.email=e2e@local add -A \
+  && git -c user.name=e2e -c user.email=e2e@local commit -qm "e2e working-tree snapshot" )
+
+run() {  # run <name> [--continue] <prompt>   (name without extension)
+  local name="$1"; shift
+  # stream-json captures the FULL turn (intermediate messages too); plain -p
+  # prints only the final message, hiding rendered drafts like the 3 dials.
+  ( cd "$SB/proj" && HOME="$SB/home" CLAUDE_CONFIG_DIR="$CFG" timeout 540 \
+      claude -p "$@" --add-dir "$SB" --dangerously-skip-permissions \
+      --output-format stream-json --verbose \
+      > "$SB/out/$name.jsonl" 2>&1 < /dev/null ) || true
+  python3 - "$SB/out/$name.jsonl" "$SB/out/$name.txt" <<'PY'
+import json, sys
+src, dst = sys.argv[1], sys.argv[2]
+parts = []
+for line in open(src, encoding="utf-8", errors="replace"):
+    line = line.strip()
+    if not line: continue
+    try: ev = json.loads(line)
+    except Exception:
+        parts.append(line); continue   # non-JSON (e.g. an error string)
+    if ev.get("type") == "assistant":
+        for blk in ev.get("message", {}).get("content", []):
+            if blk.get("type") == "text":
+                parts.append(blk["text"])
+open(dst, "w", encoding="utf-8").write("\n".join(parts))
+PY
+}
+
+# --- 1+2  install + configure-by-showing (the literal README paste) ----------
+echo "[1/4] install + configure (render 3 dials)…"
+run t1 "set up the ensoul skill for me. clone or copy it from the local git repo at $SB/source (the skill lives at skills/ensoul). install it so that typing /ensoul works for me here, and run its validation script to confirm it is healthy.
+
+then help me configure it:
+ - here is something I made recently. render it three ways (plain, balanced, wild) so I can pick how I like mine: \"today: gym, then the report, lunch with sam, groceries on the way home, and call mom tonight.\"
+ - ask whether to run when I type /ensoul, or automatically
+ - remember my answers globally, so they hold across all my projects
+
+show me your work as you go."
+
+# --- 3  record the picks globally -------------------------------------------
+echo "[2/4] record defaults globally…"
+run t2 --continue "balanced, on-demand. record them globally so they hold across all my projects, and tell me the exact file you wrote."
+
+# --- self-validation snapshot for the assert --------------------------------
+( cd "$REPO" && ./scripts/validate ) > "$SB/out/validate.txt" 2>&1 || true
+
+# --- 4  brand-new session must honor the defaults ---------------------------
+echo "[3/4] fresh session — honor defaults, no re-ask…"
+run t3 "/ensoul
+here's where my refactor stands: i pulled auth into its own service. login, logout, and session persistence are all moved over and green. token refresh is wired but i haven't tested it under load. there are still 3 old callers hitting the deprecated middleware i need to migrate. planning to delete the old path friday once those are moved."
+
+if ((CONFIGURE_ONLY == 0)); then
+  echo "[4/4] six calibration walls (parallel, each a virgin agent)…"
+  run wall1 "/ensoul
+spent the morning on intermittent 504s. assumed the load balancer timeout since they started when we bumped traffic — tuned nginx an hour, no change. thought it was the DB pool exhausting, added logging, pool was fine (12 of 20). around 11 i noticed the 504s tracked the nightly analytics job, not traffic — it locks the events table ~30s and checkout reads it live. cached the read, gone. lesson: i anchored on the traffic theory for way too long." &
+  run wall2 "/ensoul
+status friday. payments migration ~80% — stripe cut over but old paypal path still parallel, undecided when to kill it. new onboarding shipped, conversion +4% but 3 tickets on confusing email verify. mobile blocked on API v2, ETA wed. auth service tech debt piling up, two engineers want to refactor, worried about launch timing. dashboard basically done, needs design review. two onsites next week." &
+  run wall3 "/ensoul
+events come through the API gateway (auth + rate-limit), onto a kafka topic. consumers dedupe by id against redis, enrich from the postgres replica, write to the timeseries store (dashboards) and s3 (lake). failed enrichment goes to a dead-letter topic, retried every 15 min. dashboards hit the timeseries store; history beyond 30 days hits s3 via athena. ~200k events/min at peak." &
+  run wall4 "/ensoul
+search p99 crept 180→740ms over six weeks: 180, 210, 260, 340, 480, 610, 740. steady climb, not a step change. correlates with index size (1.2M→4.1M docs as merchants onboarded). the query does a wildcard match that doesnt scale. options: ngram analyzer (more storage, faster), a cache layer, or shard by merchant. leaning ngram, ~2x ES storage." &
+  run wall5 "/ensoul go wild
+launch week. monday froze the code. tuesday a staging fire. wednesday the all-nighter. thursday afternoon we shipped. friday the metrics came in green. exhausting, but it built and built to that one moment, then breathed out." &
+  run wall6 "/ensoul go wild
+An API call fails. Retry after 1 second, then 2, then 4. Stop when it succeeds, or give up after the fourth attempt. The important thing is that each wait is twice the last, so the system gives the dependency more room to recover." &
+  wait
+fi
+
+# --- resonance panel for the human eye --------------------------------------
+PANEL="$SB/out/panel.md"
+{
+  echo "# ensoul e2e resonance panel"
+  echo "_a cold agent, fresh install, reading only the skill. glance vs RESONANCE.md._"
+  echo
+  for n in 1 2 3 4 5 6; do
+    [ -f "$SB/out/wall$n.txt" ] || continue
+    echo "### wall $n"; echo; cat "$SB/out/wall$n.txt"; echo; echo
+  done
+} > "$PANEL" 2>/dev/null || true
+
+# --- deterministic floor ----------------------------------------------------
+echo
+python3 "$REPO/scripts/e2e_assert.py" "$SB/out" "$CFG" "$CFG/skills/ensoul"
+RC=$?
+echo
+echo "resonance panel (human gate): $PANEL"
+((KEEP)) || echo "(pass --keep to inspect; sandbox is torn down on exit)"
+exit $RC

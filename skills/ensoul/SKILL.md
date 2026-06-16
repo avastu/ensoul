@@ -8,7 +8,9 @@ description: |
 
 Create visual artifacts for felt understanding.
 
-The lived purpose: when an agent produces more text than a person can take in — and their eyes start to slide off the wall — Ensoul returns one small shape they can read at a glance. It is reader-protection against the wall, not decoration.
+The lived purpose: a model thinks, types, and emits far faster than a person can feel. That gap is the wall — every extra sentence is a demand on a finite human's attention. Ensoul is how the model carries the complexity on its own side and hands back only what fits in one breath.
+
+So the compression is not decoration. It is care: restraint on the model's side so the person is met, not overwhelmed. Reader-protection against the wall. When in doubt, give less.
 
 Ensoul turns complex work into bounded artifacts where line, silence, symbol, pattern, and evidence let truth become felt before it is fully explained. Use it for research communication, project state, coding transcripts, strategy, architecture, agent behavior, symbolic mirrors, public explainers, ASCII/Unicode artifacts, and visual essays.
 
@@ -29,37 +31,32 @@ Every Ensoul artifact carries three loads at once. They are equal weight. An art
             by how good the picture looks.
 ```
 
-Truth keeps it honest. Beauty makes it land. Goodness keeps it *for the person* instead of a performance aimed at them. When the three conflict, do not resolve it by force — usually the move is to subtract until all three can hold at once.
-
-The three gates below are how you check each load. The modes and workflow are how you make the artifact in the first place.
+Truth keeps it honest. Beauty makes it land. Goodness keeps it *for the person* instead of a performance aimed at them. When the three conflict, subtract until all three can hold at once. The gates below are how you check each load.
 
 ## Default Register
 
-Default to the **smallest artifact that does the job**: one move, a few lines, glanceable in a single look. This restrained end of the range is the default — Rubin before cathedral. A reader should grasp it without decoding a legend or parsing more than one relationship at a time.
+Default to the **smallest artifact that does the job**: one move, a few lines, glanceable at once — Rubin before cathedral. "Small" is few lines and few live relationships, *not* a narrow column; let each line run as wide as it reads best (see the Render Gate). A bare `/ensoul` takes whatever is in front of it — transcript, diff, decision, conversation — and returns one honest, glanceable shape. The user specifies nothing; that is the whole interface.
 
-A bare `/ensoul` invocation takes whatever is in front of it — the transcript, the diff, the decision, the conversation — and returns one small, honest, glanceable shape at this register. The user should not have to specify anything; bare `/ensoul` is the whole interface.
+Two settings, usually chosen once at install and recorded **globally** in the agent's memory so they hold across projects:
 
-The user can set a standing **dial** — `plain`, `balanced`, or `wild` — usually chosen once at install and recorded **globally** in the agent's own memory/instructions, so it holds across all of their projects. It shifts the default along one axis: how much plain text versus visual wildness/abstraction they want. `plain` leans on words with a few marks; `balanced` is the small glanceable visual described here (and the default when the dial is unset); `wild` makes the default a **striking single-image artifact** — commit to one dominant visual metaphor (a sun, a constellation, a tide, a creature) and render the content *into* it. On `wild`, enter Wild Permission Mode below and **do not fall back to a tidy card, list, or timeline** — that is the failure. If the result looks like something `balanced` would produce, it is not wild enough; push further. (The README's radiant-sun "day" is the target register.) Honor the dial when it is set; a per-invocation request ("go wild," "just words") overrides it for that turn. Whatever the dial, the no-lie / no-dazzle gates still hold and bare invocations stay bounded.
+- **dial** — `plain` (words + a few marks) · `balanced` (the small glanceable visual; the default) · `wild` (one striking single-image artifact: commit to a dominant metaphor — a sun, a tide, a creature — and render the content *into* it; enter Wild Permission Mode, and do **not** fall back to a tidy card/list/timeline). A per-invocation request ("go wild," "just words") overrides the dial for that turn.
+- **mode** — `on-demand` (invoked explicitly, `/ensoul` or `$ensoul`) or `standing` (the agent leads with an artifact whenever its own reply would otherwise land as a wall).
 
-The user also chooses a **mode**, again usually at install. In **on-demand** mode they invoke Ensoul explicitly (`/ensoul`, or `$ensoul` in Codex). In **standing** (automatic) mode the agent applies Ensoul to its own output going forward: whenever a reply would land as a wall of text, lead with the artifact instead of the wall. Standing mode still respects the dial, keeps artifacts bounded, and still returns a plain sentence when a sentence is clearest — it does not decorate short replies.
+**Configure by showing, not asking.** At first run, render one real recent artifact of theirs at all three dials (`plain` · `balanced` · `wild`) **inline as text, in your reply** — then let them pick by seeing it on their own work. Never make them choose from words alone, and never defer to an interactive picker or UI affordance: if you cannot display all three rendered artifacts as text, configuration is not done. Record the dial + mode globally only after they have seen the three and chosen.
 
-**Configure from the user's own material, not abstract description.** At install (or first run), take a real recent artifact from their environment — a transcript, a diff, the project's state, a file they just touched — and render it at all three dial settings: `plain`, `balanced`, `wild`. Let them pick the dial by seeing Ensoul on their own work, then capture the dial and the mode and record both **globally** in the agent's memory/instructions, so they hold across the user's projects. Showing it on their material is the demo and the configuration in one move; never make them choose `plain`/`balanced`/`wild` from words alone.
-
-Reach for larger, denser, or stranger forms — mirrors, editorial plates, 25–45-line wild compositions — **only when the user asks** (in the moment, or via a standing `wild` dial) for "more," "bigger," "wild," "a plate," "a mirror." Absent that, a bare invocation stays small even when the input is huge: compress to the few things that matter (aim for ~3–7 lines). If the material truly has too many live threads to hold in one glance, surface the top few and ask what to focus on — do **not** silently expand into a dense map. Range is available on request; restraint is the default. If you find yourself making a big artifact for a bare invocation, stop and ship the small one.
-
-And if a plain sentence is already the clearest form, return the sentence — not a box around it. A glyph frame on "the meeting is at 3pm" is theater; "3pm" is the honest answer. The no-artifact reply is a legitimate Ensoul output, not a failure to perform.
+Range is available **on request** ("more," "bigger," "a plate," "a mirror"); absent that, stay small even when the input is huge — compress to what matters (~3–7 lines). Too many live threads to hold at once? Surface the top few and ask what to focus on; do not silently expand into a dense map. And if a plain sentence is the clearest form, **return the sentence** — a box around "the meeting is at 3pm" is theater. The no-artifact reply is a legitimate output, not a failure to perform.
 
 ## Core Lineage
 
 The lineage maps onto the three loads:
 
 - **Tufte** — *truth:* evidence, integrity, comparison, graphical honesty under the beauty.
-- **Ruth Asawa** — *beauty:* line, loop, shadow, delicacy, spacious structure.
-- **Rick Rubin** — *beauty by subtraction:* essence, presence, the one true thing.
+- **Ruth Asawa** — *beauty through line:* wire-like structure, loop, shadow, transparency, delicacy, spaciousness, and forms that let air participate. Use this region when an artifact needs woven relationships, suspended tension, nested loops, or a light structure whose shadow/negative space carries meaning.
+- **Rick Rubin** — *beauty by subtraction:* essence, presence, restraint, silence, and the one true thing. Use this region when the artifact is becoming clever, dense, or performative: remove until the remaining object feels inevitable.
 - **Works in Progress / Stripe Press** — *beauty as cognition:* ornament that is information.
 - **Psychomagic** — *goodness:* symbols grounded in real forces, costs, and choices, used to free perception, not to cast a spell.
 
-Keep the public surface grounded. The deeper charge belongs in the artifact, not in vague mystical claims.
+These are lineage prompts, not style costumes. Do not imitate an artist's works or mannerisms. Let the references activate craft operations: Asawa asks "what can line and air hold?"; Rubin asks "what remains if everything nonessential is removed?" Keep the public surface grounded. The deeper charge belongs in the artifact, not in vague mystical claims.
 
 ## Concrete Transformation Gate
 
@@ -72,14 +69,21 @@ BEFORE
 "We fixed the login bug, tests pass locally, prod deploy is still pending."
 
 AFTER ENSOUL
-┌──────────── LOGIN FLOW ────────────┐
-│ ◎ behavior  session persists        │
-│ ✕ old path  logged users out        │
-│ Δ patch     retry refresh once      │
-│ ✓ proof     regression test passed  │
-│ ~ open      prod deploy pending     │
-└─────────────────────────────────────┘
+  LOGIN FLOW
+  ──────────────────────────────────────────────────
+    behavior   ◎  session now persists across refreshes
+    old path   ✕  it used to log users out
+    patch      Δ  retry the token refresh once
+    proof      ✓  regression test passed locally
+    open       ~  prod deploy still pending
 ```
+
+This uses the **forgiving form**: a top rule and a left-aligned ASCII
+column carry the structure, and the meaning-glyphs (`◎ ✕ Δ ✓ ~`) sit
+*after* it with a ragged-right tail — no right border to drift, so it
+holds across fonts with nothing to measure. A closed `┌─┐` box is
+equally valid here; it would just earn one measure first (see the
+Render Gate).
 
 Use the abstract visual system only after the concrete transformation is visible. A stranger should be able to answer, within a few seconds: "What did this skill do to the input?"
 
@@ -87,7 +91,7 @@ If the first artifact explains Ensoul, the project, or the visual grammar more t
 
 ## Show-Not-Tell Preference
 
-When the topic is complex, prefer a compact visual before long prose. When the user asks for creativity, make the artifact feel alive, but make every flourish encode meaning.
+When the topic is complex, prefer a compact visual before long prose — "dense" means *perceptually* dense, not word-dense. Prefer one designed object over a long explanation when the object can carry the structure. When the user asks for creativity, make the artifact feel alive, but make every flourish encode meaning.
 
 - Use a diagram or concept map for structure.
 - Use a causal or process flow for mechanism.
@@ -100,7 +104,7 @@ When the topic is complex, prefer a compact visual before long prose. When the u
 - Treat borders and frames as semantic surfaces. A rich frame can encode evidence, pressure, lineage, constraints, rhythm, weather, or provenance; it should not be a decorative box.
 - For coding collaboration, use intuitive coding primitives: `✓` verified proof, `▤` file/receipt, `✕` failure/risk, `!` urgency, `Δ` change, `◆` design/decision, `?` unknown, `~` unstable, `▲` user-visible feature, `◎` behavior at the center, `o──o` dependency/handoff.
 
-Make the visual do real explanatory work. Add prose to interpret the visual, not to replace it.
+Make the visual do real explanatory work. Add prose to interpret the visual, not to replace it. Before writing paragraphs, ask: "What would the reader understand if they only saw the artifact?"
 
 ## Output Contract
 
@@ -153,52 +157,89 @@ Truth and beauty can both be present and the artifact can still harm: a gorgeous
 
 Goodness is not softness. It can mean showing a hard truth plainly. It refuses two opposite failures: **cruelty** (wounding without care) and **flattery** (comfort that hides consequence).
 
+## Render Gate
+
+The three loads judge the artifact's *meaning*. This gate is about one fact you cannot escape: **when you generate an artifact, you are typing characters into a monospace grid you cannot see.** You never perceive the rendered result — you infer columns from memory. Eyeballing alignment is not seeing; it is guessing, and almost every broken border, drifted column, and cramped width is born here.
+
+So there are exactly two honest ways to be aligned:
+
+```text
+   LOOK                              USE A FORGIVING FORM
+   ────                              ────────────────────
+   measure or render before you      one that cannot drift —
+   show it: count the column of      a left-spine or open frame
+   each aligned mark, confirm        (no closing right border),
+   they match. closed boxes and      a ragged-right tail.
+   column grids earn this.           costs nothing; no check.
+```
+
+Pick per artifact. Both are good: a closed `┌─┐` box carries real meaning (containment, a held space) and is first-class — it just pays for it with one measure. A forgiving form is free. The only wrong move is shipping an ambitious aligned form you never looked at.
+
+**"Measure" means render-cells, not code-points.** A naive `len()` count is itself a form of eyeballing: it says `·` and `✓` are one character each, but the *terminal* may render them as two cells, and the border drifts anyway. Either count true display width, or — far simpler — **call a generator instead of hand-typing.** `recipes/render.py` ships `cells()`, `audit()` (flags ambiguous glyphs that would drift a border), `open_frame()`, `measured_box()`, `hbar()`, and `spark_block`/`spark_braille`. A box you generate is correct by construction; a box you type is a guess.
+
+Three corollaries fall out of being blind:
+
+- **Width is a choice, not a reflex.** "Small" means few lines and few live relationships — *not* a narrow column. Narrow only *feels* safe because there is less room to misalign. Let each line run as wide as its content reads best, then stop. (Real tension: very wide artifacts wrap or sideways-scroll on a phone — choose width for where it will be read.)
+- **Some glyphs are 1-or-2 cells by font** (`◎ ● ○ ★ ◑ ☉ → Δ` and the sneaky everywhere-in-this-style `·` middle dot), so they can shove a *right border* off across fonts; `✓ ✕ ⚠ ~ ! ?` and ASCII are reliably one cell and safe at an edge. (Shading `░ ▒ ▓ █` also flips by theme: glow on dark, solid mass on light.) When unsure, keep these off the right edge or use a forgiving form — inside a figurative image with no alignment edge, they are perfectly safe.
+- **Let structure carry the meaning; glyphs are accent.** Position, grouping, CAPS labels, indentation, and box-drawing rails encode meaning *and cannot drift and need no legend* — make them load-bearing. A glyph is a dab of valence (`✓` good / `✕` bad) the eye reads pre-verbally, not the thing holding the artifact up. If erasing the glyph loses the structure, the structure was too weak; fix that first.
+
+A bare `/ensoul` clears this on its own first pass — alignment and width are generation-time craft, not afterthoughts. The `artifact-review` skill is the deeper adversarial render pass (multi-model, cross-platform) for ship-polish; ensoul should not *depend* on it to come out aligned.
+
+## Surface Gate
+
+The artifact may be read in a terminal, Codex app, Claude app, GitHub README, Slack, or mobile browser. Attune to the actual surface when you can; when you cannot, use portable defaults.
+
+```text
+  IF WIDTH IS KNOWABLE              IF WIDTH IS UNKNOWN
+  ────────────────────              ───────────────────
+  use it, with breathing room        use a sensible default
+  terminal: `tput cols`              balanced: ~68 cells
+  rendered pane: observe it          wild: ~78 cells if earned
+  screenshot/browser: look           closed box: narrower or generated
+```
+
+Do not make this a hard global clamp. Use the width the artifact needs, but pay for it: know the surface when possible, measure display cells, and keep important meaning away from the wrap cliff. Even when a line technically fits, fold secondary detail if it lands inside the breathing-room margin.
+
+When a line grows long, preserve the spine and fold secondary detail downward:
+
+```text
+  risky
+  ├─ hot history      Timeseries store ──▶ dashboards [0-30d]
+
+  safer
+  ├─ hot history      Timeseries store ──▶ dashboards
+                       0-30d
+```
+
+The rule is **spine across, detail down**. Do not shrink the whole artifact just to save a qualifier at the edge. Use `recipes/render.py`'s `surface_width()` and `flow_row()` when rendering flow rows under uncertain surfaces.
+
+## Materials
+
+Stop thinking "font," start thinking **paint.** The medium is a shelf of materials, each with a different grain — resolution, how fast meaning lands, whether it survives fonts/copy, what *register* it carries. Leveraging it fully is not *more marks* — it is the right material at the right register: type and rails for calm structure; block shading for weight and mass (**magnitude as ink**); braille for fine series (**a curve in a sentence**); safe glyphs (`✓ ✕ ⚠ ~ !`) as accent; emoji warm but fragile. Block-as-magnitude and braille-as-curve are the two habitually under-used; **generate both with `recipes/render.py`** rather than hand-typing.
+
+**The discipline that keeps this from chartjunk:** richer material is *earned* by encoding real structure or magnitude, and still faces the three loads — shading must mean weight, a sparkline must be real data, emoji must fit the room. If it can be stripped and the meaning survives, erase it.
+
+```text
+   plain      type · rules · safe glyphs
+   balanced   + a sparkline or magnitude bar when there's a series / weight
+   wild       full block + braille figuration — draw the thing, fill the frame
+```
+
+The full material shelf with grain notes, plus worked examples, lives in `references/materials-gallery.md`; the generators in `recipes/render.py` — call them, don't hand-type.
+
 ## Wild Permission Mode
 
-When the user explicitly asks for weirder, wilder, Rick-Rubin-like, Ruth-Asawa-like, jazz-like, appalling, wrong, risky, or permission-to-fail artifacts — **or whenever their dial is set to `wild`** — loosen the usual politeness and produce a stranger designed object. This mode is not optional decoration on `wild`; it is the job. Lead with one dominant unforgettable image and bend the content into it.
+When the user asks for weirder, wilder, Rubin-like, jazz-like, appalling, or permission-to-fail work — **or whenever the dial is `wild`** — loosen the politeness and make a stranger object. On `wild` this is the job, not optional. Lead with one dominant, unforgettable image and bend the content into it.
 
-Use this mode to:
-- privilege surprise, rhythm, silence, negative space, repetition, loops, knots, syncopation, and sculptural line;
-- make ASCII/Unicode feel like wire, score, ritual diagram, net, stage direction, or found inscription;
-- let the artifact risk being ugly, excessive, asymmetrical, haunted, funny, or wrong;
-- create one dominant unforgettable image before explaining anything;
-- keep a hidden skeleton of integrity: symbols still mean something, and the artifact still reveals a real structure.
+- privilege surprise, rhythm, silence, repetition, knots, and sculptural line; make ASCII/Unicode feel like wire, score, ritual diagram, or found inscription;
+- let it risk being ugly, excessive, asymmetrical, haunted, funny, or wrong;
+- keep a hidden skeleton of integrity: symbols still mean something, the artifact still reveals real structure.
 
-**Use the whole ASCII/Unicode palette — most wild artifacts fail by being timid (a few lines and scattered dots).** Reach for:
-- shading & depth: `░ ▒ ▓ █` for glow, fade, weight, distance; gradients that fill space
-- mass & silhouette: `▀ ▄ ▌ ▐ ■ ◣ ◢ ◤ ◥ ▙ ▟` — build solid forms, not just outlines
-- texture & grain: braille `⠿ ⣿`, stipple fields, scatter, hatching `╱╱╱ ░░░`
-- geometry & light: `◉ ◔ ◑ ● ○ ✦ ✧ ❍ ✺ ⬡` — cells, stars, orbits, suns
-- figuration: actually **draw the thing** — a sun, a tide, a creature, a map, a machine — and render the content into its body, not beside it.
+**Most wild artifacts fail by being timid** — a few lines and scattered dots. Use the full palette (see Materials): commit to one material — light, water, mass, growth, circuitry, or plate — and **draw the thing**, rendering content *into* its body, not beside it. Density is allowed and often better than space; negative space is a tool, not a rule. If the subject has a hidden center or symbolic tension, an editorial plate can be the right wild form: a contained field, named center, satellites, pressure lines, and one sentence that says what the composition revealed. If the subject is data, motion, or magnitude, dense exact beauty should be **generated, not hand-typed**: reach for `recipes/render.py`'s `terrain` (a real series as a landscape), `wave`, `orb`, and `field` — fed real data — instead of scattering glyphs. `terrain` is the gold one: a wild image that is also a truthful chart.
 
-Density is allowed and often better than space: fill the frame, let one textured shape dominate. Negative space is a tool, not a rule — a sparse scatter of dots is the safe version of wild. Pick a material (light, water, mass, growth, circuitry) and commit the whole image to it.
+The three loads still hold: even wild must not lie, must intensify rather than decorate, and must not wound the person it is for. Failure is allowed if it teaches taste.
 
-Do not sand off the interesting edge just because the result may be confusing. In this mode, failure is allowed if the failure teaches taste. The three loads still apply: even a wild artifact must not lie (truth), must intensify rather than decorate (beauty), and must not manipulate or wound the person it is for (goodness).
-
-Spaciousness means air inside a bounded visual window, not making the user scroll through emptiness. Prefer one contained frame with tension, silence, and negative space over a tall artifact that disperses attention.
-
-Target shape:
-- one visual window, usually 25-45 lines unless the user asks for a long scroll piece;
-- clear outer boundary or compositional center;
-- fewer labels, stronger marks;
-- one strange focal object;
-- enough air that the eye can move, not so much that the artifact becomes a pause button.
-
-## Artifact-First Stance
-
-"Dense" usually means perceptually dense, not word-dense. Prefer a single designed object over a long explanation when the object can carry the structure.
-
-An artifact can be:
-- a one-page concept plate;
-- a mycelial network map;
-- a glyph atlas;
-- an evidence confection;
-- a visual essay frame;
-- a psychomagic mirror for values, attention, or inner conflict;
-- a small-multiple field of worlds, options, or states;
-- a diagram that feels like a painting because its composition is doing epistemic work.
-
-Before writing paragraphs, ask: "What would the reader understand if they only saw the artifact?"
+Target shape: one contained window (usually 25–45 lines), a clear boundary or center, one strange focal object, fewer labels and stronger marks, enough air for the eye to move without becoming a pause button.
 
 ## Symbolic Mirror Mode
 
@@ -233,80 +274,15 @@ When this influence matters, read `references/editorial-artifact-patterns.md`.
 
 ## Workflow
 
-### For research communication and complex explanations:
+One loop, whatever the artifact:
 
-1. **Find the public nerve**
-   - What is the deep claim, mechanism, or surprise?
-   - What does the audience currently misunderstand?
-   - What emotional/intellectual tension should pull them through?
+1. **Find the nerve** — the single comparison, mechanism, state, decision, or feeling this must reveal. If you can't name it, there's no artifact.
+2. **Choose the form to fit the nerve** — a session/journey (a debug, a PR, a day) → trail; structure → map/table; mechanism → flow; tradeoff → 2×2 or decision table; magnitude → bar; series → sparkline; lived meaning → mirror. Pick the material by register (see Materials). When there's a sequence, prefer the trail — it carries story, where a card only carries state.
+3. **Make every mark mean** — position, value, texture, enclosure, arrows each carry meaning or get erased. Keep a visible spine: input → transform → output.
+4. **Run the gates** — Truth, Beauty, Goodness, then Render. Subtract until all hold.
+5. **Ship the smallest version that lands.** When in doubt, give less.
 
-2. **Choose a visual grammar**
-   - Structure or ontology -> concept map, network, matrix, or atlas.
-   - Mechanism -> causal flow, state machine, sequence, or swimlane.
-   - Research evidence -> annotated table, small multiples, evidence strip, or figure-plus-caption.
-   - Strategy or tradeoff -> 2x2, frontier curve, decision table, or force-field map.
-   - Living/systemic metaphor -> organism map, organs table, feedback loop, glyph legend.
-   - Lived meaning or identity -> psychomagic mirror, mycelial field map, symbolic atlas, or ritual plate.
-   - Public-explainer topic -> editorial plate, historical collage, annotated image, or visual essay frame.
-
-3. **Assign meaning to marks**
-   - Position, size, value, texture, color, orientation, shape, enclosure, and arrows should mean something.
-   - Include a legend when symbols are non-obvious.
-   - Let aesthetics intensify the encoding; do not let aesthetics replace it.
-
-4. **Anchor the wonder**
-   - Show evidence, provenance, assumptions, or uncertainty where relevant.
-   - Preserve causality and mechanism.
-   - If making a wild or poetic artifact, keep a visible spine: inputs -> transformation -> outputs -> consequences.
-
-5. **Run the three gates**
-   - **Truth:** weight matches evidence; "compared to what?" answered; receipts near claims; lie factor honest for any chart.
-   - **Beauty:** eraser and collision passed; primary meaning dominates; form intensifies rather than decorates.
-   - **Goodness:** no conclusion smuggled past the evidence; no false urgency; loaded material held with care; blind spots named.
-
-6. **Ship a memorable artifact**
-   - Prefer one dense visual/table/diagram that can be reread over paragraphs that merely describe.
-   - Use words, numbers, images, and symbols together.
-   - Make the reader feel the shape of the idea.
-   - If the prompt asks for magic, make the beauty carry the mechanism.
-
-### For new visualizations:
-
-1. **Clarify the data story**
-   - What comparisons matter?
-   - What's the key insight to communicate?
-   - Who's the audience?
-
-2. **Select approach** using Tufte principles:
-   - High comparison need → Small multiples
-   - Dense data → Consider data tables, sparklines
-   - Time-series → Line charts with minimal grid
-   - Part-to-whole → Avoid pie charts; prefer bar/table
-
-3. **Design with data-ink in mind**
-   - Start minimal, add only what's necessary
-   - Every element must earn its ink
-   - Default to grayscale; use color purposefully
-
-4. **Run the three gates** (Truth, Beauty, Goodness above), with extra attention to the Tufte spine: erase redundant elements, duplicate encodings, and heavy gridlines; check every text element's bounding box; move explanatory prose into captions when it crowds the plot; push reference labels to margins or connect them with leader lines.
-
-5. **Apply the Tufte spine in detail** (see `references/tufte-principles.md`).
-
-### For critiquing visualizations:
-
-1. **Check graphical integrity** (truth) — calculate lie factor if proportions seem off, verify baselines and scales, look for 3D distortion.
-2. **Identify chartjunk** (beauty) — decorative elements, heavy grids, unnecessary 3D effects, moiré patterns; ask what can be erased.
-3. **Check whom it serves** (goodness) — does the display mislead, manufacture urgency, or flatter a desired conclusion? Does it hide what it cannot show?
-4. **Suggest improvements** with specific before/after recommendations.
-
-## Triad Checklist
-
-Run before shipping any artifact:
-
-- [ ] **TRUTH** — visual weight matches evidence; "compared to what?" is answered; proof sits near its claim; lie factor ≈ 1.0 for charts; meaning-bearing mirrors held `recognition-pending`.
-- [ ] **BEAUTY** — every mark survives the eraser; no collisions; primary meaning dominates and ornament recedes; form intensifies the idea instead of decorating it; symbols carry meaning, not vibes.
-- [ ] **GOODNESS** — no conclusion smuggled past the evidence; no false urgency or false certainty; loaded material held with care, not cruelty or flattery; blind spots named; the person is left more sovereign.
-- [ ] When the three conflict, subtract until all three can hold at once.
+Critiquing a visualization is the same gates in reverse: check integrity (lie factor, baselines, no 3D distortion), erase chartjunk, ask whom the display serves, then give specific before/after fixes. For quantitative displays, apply the Tufte spine in detail (`references/tufte-principles.md`).
 
 ## Key Principles Reference
 
@@ -315,6 +291,8 @@ Run before shipping any artifact:
 - `references/visual-language-research-communication.md` — graphic-language and research-communication patterns inspired by semiology of graphics, diagrams, networks, maps, visual variables, evidence confections, and public technical storytelling. Load when explaining research, systems, strategy, architecture, agent behavior, or complex ideas to humans.
 - `references/editorial-artifact-patterns.md` — WIP/Stripe Press-inspired editorial art direction, ornament-as-information, and grounded symbolic artifact patterns. Load when the user asks for magic, artifacts, mycelial networks, publication-quality visuals, or public-facing explainers. (Beauty.)
 - `references/visual-primitives.md` — reusable mark grammar and compositional primitives inspired by temple architecture, editorial plates, ASCII art, living systems, and coding collaboration. Load when inventing a new artifact style, making a glyph system, tuning visual language, or summarizing coding/project state.
+- `references/materials-gallery.md` — golden input→ensoul pairs plus seven verified worked examples on real technical artifacts (a sentence, a debugging trail, a state card, a block sparkline, a wild plate, and two wild images), smallest first, each breathing and showing the generative move. A coding session is a journey — the trail is the resonant default. Load when choosing a material or learning a form by imitation. (Beauty + Truth.)
+- `recipes/render.py` — runnable generators that produce aligned artifacts by construction: alignment (`cells`, `audit`, `open_frame`, `measured_box`), surface attunement (`surface_width`, `flow_row`), magnitude/series (`hbar`, `spark_block`, `spark_braille`), and procedural beauty for the wild dial (`terrain`, `wave`, `orb`, `field`). Call these instead of hand-typing fragile glyphs, padding, or art. `recipes/test_render.py` unit-tests them all (run by `scripts/validate`).
 - `references/calibration-prompts.md` — first-run prompts, failure modes, and self-evaluation patterns. Load when testing, tuning, installing, or validating the skill.
 
 ## Cross-Agent Use
