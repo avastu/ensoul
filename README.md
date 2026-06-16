@@ -1,4 +1,4 @@
-# ensoul
+# _ensoul_
 
 *ensoul* · verb · to imbue with soul
 
