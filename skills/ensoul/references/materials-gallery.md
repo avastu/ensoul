@@ -91,6 +91,48 @@ ENSOUL
    ✓  nearly   payments 80% / dashboard review
 ```
 
+### Options wall → comparison table
+
+The honest home for "compared to what?" — when the nerve is a *decision across
+tradeoffs*, a table beats prose because the eye reads down a column. Measure the
+columns (`render.py`/`cells`), one header rule, ≤4–5 columns. Keep visual weight
+matched to evidence — the CAPS `HIGH` and `✕` are the only loud marks, and they
+mark the real risk.
+
+INPUT
+```text
+We've got three ways to kill the 504s. We could cache the read, which is cheap
+and low-risk and fully reversible. We could rewrite the query — that's a lot more
+effort and medium risk, but still reversible. Or we could drop the nightly
+analytics job entirely, which is easy but high-risk and basically not reversible
+since downstream reports depend on it.
+```
+
+ENSOUL
+```text
+  fix path           effort   risk   reversible
+  ─────────────────────────────────────────────
+  cache the read     low      low    ✓
+  rewrite query      high     med    ✓
+  drop nightly job   low      HIGH   ✕
+```
+
+### Goals wall → progress small-multiples
+
+**Nerve:** magnitude across several workstreams — who's near done, who's behind —
+felt as ink, not read as numbers. **Material:** stacked `hbar()`; measure the
+label column so every bar starts on the same edge. `█`+track read safe in light
+and dark. The percentages ride along as the evidence drawer.
+
+```text
+  launch readiness
+
+  payments    ██████████████░░░░  80%
+  onboarding  ██████████████████  100%
+  mobile      ████░░░░░░░░░░░░░░  25%
+  dashboard   ████████████████░░  90%
+```
+
 ### Architecture wall → braided flow
 
 INPUT
@@ -310,10 +352,12 @@ ENSOUL
 
 - **A session is a journey** — when there's a sequence (a debug, a PR, a day),
   reach for the trail before a card. It carries story; a card only carries state.
-- **Match material to the job:** a state → a card · a magnitude → a bar · a series
-  → a sparkline · an ordinary thing with a hidden center → a plate · a felt shape
-  → an image · a mechanism → its own geometry. A sentence beats all of them when
-  it already says it.
+- **Match material to the job:** a state → a card · a magnitude → a bar · several
+  magnitudes → stacked bars · a tradeoff across options → a table · a series →
+  a sparkline · a hierarchy → a tree · a status-over-time with a "you are here" →
+  a done/pending timeline (`● ○`) · an ordinary thing with a hidden center → a
+  plate · a felt shape → an image · a mechanism → its own geometry. A sentence
+  beats all of them when it already says it.
 - **Generate, don't hand-type:** call `render.py`. Correct by construction.
 - **One or two facts per line.** Density is the enemy of landing.
 - **Stop early.** The first honest form that lands wins.
