@@ -78,6 +78,22 @@ check(full == ["█" * 8] * 3, "field of 1.0 is solid")
 empty = R.field(lambda nx, ny: 0.0, width=8, height=3).splitlines()
 check(all(r == "" for r in empty), "field of 0.0 is blank")
 
+# --- calligram: a word-field shaded by meaning -----------------------------
+GRAD = ["seeing", "see", "look", "read", "gaze", "watch", "SEE", "KNOW"]
+eye = R.calligram(GRAD, R.fig_eye(), width=74, height=31)
+words = set(eye.split())
+check("KNOW" in words, "eye reaches the peak word at the pupil rim")
+check("seeing" in words, "eye carries the low-intensity word at the periphery")
+check(all(w in GRAD for w in words), "calligram emits only gradient words")
+check(eye.splitlines()[0] != "" and eye.splitlines()[-1] != "", "blank edge rows are cropped")
+check(any("   " in ln.strip() for ln in eye.splitlines()), "the pupil void leaves a real gap mid-figure")
+check(R.calligram(GRAD, R.fig_eye()) == eye, "calligram is deterministic")
+solid = R.calligram(["ground", "rise", "SHIP"], R.fig_spire(), width=40, height=16)
+check("SHIP" not in solid.splitlines()[-1], "spire apex word is not at the base")
+check("SHIP" in solid, "spire crowns the apex with the peak word")
+blank = R.calligram(GRAD, lambda nx, ny: None, width=20, height=4).splitlines()
+check(all(r == "" for r in blank), "an all-None figure renders blank")
+
 # --- golden recipe: exponential backoff spiral -----------------------------
 spiral = R.exponential_backoff_spiral()
 check("EXPONENTIAL BACKOFF" in spiral, "spiral has a clear title")

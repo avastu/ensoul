@@ -7,9 +7,10 @@ reading the skill, still chooses the right form, gives less, and lands.
 ## Three layers, one quality bar
 
 ```text
-  scripts/validate   fast · offline · deterministic   recipes are correct
-  scripts/e2e        heavy · spawns a cold agent       the SKILL still works
-  this doc + you     human · the eye                   it still lands
+  scripts/validate     fast · offline · deterministic   recipes are correct
+  recipes/token_cost   fast · offline · deterministic   the hot path stays lean
+  scripts/e2e          heavy · spawns a cold agent       the SKILL still works
+  this doc + you       human · the eye                   it still lands
 ```
 
 `scripts/e2e` is the automated way to run everything below. It builds a jailed,
@@ -34,6 +35,11 @@ or `--use-local-login` to copy your own token into the jail (shredded on exit).
 Run it before shipping any change to the skill's doctrine, materials, or examples.
 A passing recipe suite (or a green `scripts/e2e`) with a slipped panel still means
 do not ship — the deterministic floor and the human eye are both required.
+
+Run `recipes/token_cost.py` as part of every ship too, and watch the **always-on**
+and **on-trigger** tiers: the hot path must not creep. New richness belongs in
+cold-lazy references or behind the recipe cheatsheet, not in the description or
+SKILL.md body. Compressing the hot path is part of shipping, not an afterthought.
 
 ## The resonance checks
 

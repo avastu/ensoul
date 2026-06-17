@@ -255,6 +255,90 @@ def field(fn, width=56, height=12, ramp=_SHADE):
         rows.append("".join(line).rstrip())
     return "\n".join(rows)
 
+# --- calligram: a word-field shaded by MEANING, not cells -------------------
+# A concrete-poem / calligram: the WORDS are the paint. A single act, repeated,
+# forms a figure — and its vocabulary climbs a semantic gradient by position, so
+# WHERE a word sits encodes HOW intense it is (seeing → look → gaze → KNOW). The
+# peak word can ring a VOID (an eye's pupil, a mandala's hollow), which is the
+# move's whole power: the most intense word surrounds an absence. Unlike
+# terrain/wave/field (which shade cells), this shades meaning. A figurative image
+# with no right border — it cannot drift; all-ASCII words are robust either theme.
+
+def calligram(gradient, fn, width=74, height=31):
+    """Fill a figure with a repeated word-field on a semantic gradient.
+    `gradient` is low→high intensity words (e.g. ["seeing",…,"KNOW"]).
+    `fn(nx, ny)` -> intensity in [0,1] (which word) or None (blank / void) —
+    the SAME normalized-coordinate contract as field(). Deterministic."""
+    def inten_at(x, y):
+        nx = x / (width - 1) if width > 1 else 0.0
+        ny = y / (height - 1) if height > 1 else 0.0
+        return fn(nx, ny)
+    rows = []
+    for y in range(height):
+        elig = [inten_at(x, y) is not None for x in range(width)]
+        line = [" "] * width
+        x = 0
+        while x < width:
+            if not elig[x]:
+                x += 1; continue
+            run_end = x
+            while run_end < width and elig[run_end]:
+                run_end += 1
+            pos = x
+            while pos < run_end:
+                v = inten_at(pos, y) or 0.0
+                idx = min(len(gradient) - 1, max(0, int(v * len(gradient))))
+                w = gradient[idx]
+                if pos + len(w) <= run_end:
+                    for i, ch in enumerate(w):
+                        line[pos + i] = ch
+                    pos += len(w) + 1
+                else:
+                    pos += 1
+            x = run_end
+        rows.append("".join(line).rstrip())
+    while rows and rows[0] == "":          # crop blank top/bottom rows
+        rows.pop(0)
+    while rows and rows[-1] == "":
+        rows.pop()
+    return "\n".join(rows)
+
+# Figure presets: each returns an fn(nx, ny) for calligram(). Three topologies —
+# almond+void, annulus+void, solid — so the peak word can ring a void or crown an
+# apex. Write your own fn for any silhouette (e.g. a rightward arrow whose tip is
+# the peak: shaft `u<=0.28 and abs(v)<=0.20`, head `abs(v)<=0.8*(1-u)/0.72`,
+# intensity `(u+1)/2`).
+
+def fig_eye(pupil=0.30, squash=1.7):
+    """Almond eye with a void pupil; peak word rings the pupil. squash>1 widens."""
+    def fn(nx, ny):
+        u = (nx - 0.5) * 2; v = (ny - 0.5) * 2 * squash
+        d = math.hypot(u, v)
+        if d < pupil or d > 1.0:
+            return None
+        return (1.0 - d) / (1.0 - pupil)
+    return fn
+
+def fig_ring(inner=0.46, outer=1.0):
+    """Annulus / mandala with a hollow center; peak word rings the inner rim."""
+    def fn(nx, ny):
+        u = (nx - 0.5) * 2; v = (ny - 0.5) * 2
+        d = math.hypot(u, v)
+        if d < inner or d > outer:
+            return None
+        return (outer - d) / (outer - inner)
+    return fn
+
+def fig_spire(base=0.95):
+    """Solid triangle, apex at top; peak word crowns the apex."""
+    def fn(nx, ny):
+        u = (nx - 0.5) * 2
+        if ny < 0.04 or abs(u) > ny * base:
+            return None
+        return 1.0 - ny
+    return fn
+
+
 def exponential_backoff_spiral():
     """A fixed golden recipe for exponential backoff.
 
@@ -314,3 +398,7 @@ if __name__ == "__main__":
     print("\n(demo of the guard)\nwarnings:", warns)
     print()
     print(exponential_backoff_spiral())
+    print()
+    print("CALLIGRAM · an eye made of attention, knowing nothing at its center")
+    print(calligram(["seeing", "see", "look", "read", "gaze", "watch", "SEE", "KNOW"],
+                    fig_eye()))

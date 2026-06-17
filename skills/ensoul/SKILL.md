@@ -1,7 +1,7 @@
 ---
 name: ensoul
 description: |
-  Use when complex context — coding work, bug hunts, project state, architecture, strategy, research, reviews, or emotionally loaded material — needs a visual artifact instead of a wall of text. Also for designing or critiquing diagrams, maps, dashboards, ASCII/Unicode artifacts, symbolic mirrors, or public explainers. Every artifact balances three loads: truth (it does not lie), beauty (form and meaning intensify each other), and goodness (it leaves the person clearer and more sovereign, never manipulated).
+  For the moment an agent sends a wall of text and your eyes glaze over — /ensoul breathes it into one visual you can take in at a glance.
 ---
 
 # Ensoul
@@ -22,7 +22,7 @@ A model thinks, types, and emits far faster than a person can feel. That gap is 
 ## Generation Loop
 
 1. **Find the nerve** — the one comparison, mechanism, state, decision, or feeling to reveal. Can't name it? There's no artifact.
-2. **Fit the form to the nerve** — sequence/journey → trail · structure → map · mechanism → flow · tradeoff → 2×2 / table · magnitude → bar · series → sparkline · lived meaning → mirror. When there's a sequence, prefer the **trail** (it carries story; a card only carries state). Pick the material by register (see Materials).
+2. **Fit the form to the nerve** — match it via the **Forms** index below, then load that one form. When there's a sequence, prefer the **trail** (it carries story; a card only carries state). Pick the material by register (see Materials).
 3. **Make every mark mean** — position, value, texture, enclosure, arrows each carry meaning or get erased. Coding glyphs: `✓` proof · `✕` fail/risk · `!` urgency · `Δ` change · `◆` decision · `?` unknown · `~` unstable · `▲` feature · `◎` behavior at center · `o──o` dependency.
 4. **Run the gates** — Truth · Beauty · Goodness · Render. Subtract until all hold.
 5. **Ship the smallest version that lands.**
@@ -76,7 +76,7 @@ Full shelf with grain notes + worked examples: `references/materials-gallery.md`
 
 ## Modes
 
-**Wild** (on the `wild` dial, or when asked for wilder / stranger / permission-to-fail): lead with one dominant, unforgettable image and bend the content into it — do **not** fall back to a tidy card/list/timeline. Most wild artifacts fail by being **timid** (a few lines, scattered dots); commit to one material (light, water, mass, growth, circuitry) and **draw the thing**, content rendered *into* its body. Density is allowed. If the subject is data or magnitude, **generate it** — `terrain` (a real series as a landscape; the gold one), `wave`, `orb`, `field` — instead of scattering glyphs. The three loads still hold. Target: one contained window (~25–45 lines), a clear center, strong marks, room to breathe.
+**Wild** (on the `wild` dial, or when asked for wilder / stranger / permission-to-fail): lead with one dominant, unforgettable image and bend the content into it — do **not** fall back to a tidy card/list/timeline. Most wild artifacts fail by being **timid** (a few lines, scattered dots); commit to one material (light, water, mass, growth, circuitry) and **draw the thing**, content rendered *into* its body. Density is allowed. If the subject is data or magnitude, **generate it** — `terrain` (a real series as a landscape; the gold one), `wave`, `orb`, `field` — instead of scattering glyphs. If the felt point is an *act intensifying toward a center* (attention, knowing, presence), reach for `calligram` — a word-field on a semantic gradient where the peak word rings a void (`fig_eye`/`fig_ring`/`fig_spire`, or any `fn`). The three loads still hold. Target: one contained window (~25–45 lines), a clear center, strong marks, room to breathe.
 
 **Symbolic Mirror** (strategy, identity, relationships, values, memory, "what's really going on?"): design as a living network where every symbol maps to a real force, evidence trace, or lived tension — never decorative mysticism. This is where Goodness matters most: include an evidence drawer, hold `recognition-pending`, hold the person with care rather than verdict. When the material is raw, or about another person's hidden intentions, don't arrange unverifiable psychology into a confident shape — default to a plain **known / unknown / next question** frame. Full grammar: `references/editorial-artifact-patterns.md`.
 
@@ -84,16 +84,41 @@ Full shelf with grain notes + worked examples: `references/materials-gallery.md`
 
 Craft prompts, not style costumes — let them activate operations, don't imitate works: **Tufte** (truth: evidence, integrity) · **Asawa** (line, air, and shadow hold relationships) · **Rubin** (subtract to the one true thing) · **Works in Progress / Stripe Press** (ornament as cognition) · **Psychomagic** (symbols grounded in real forces, to free perception, not cast a spell).
 
+## Forms
+
+The form library — one worked example per form (the nerve, the material, the call).
+Two load paths:
+
+- **Install / first run:** read the **whole** library — learn the craft deeply, once.
+- **Runtime (`/ensoul`):** load the **one** form the nerve calls for. The index below
+  carries the gradient so you pick before you load.
+
+```text
+  sequence → trail · state / triage → card · tradeoff → table · several magnitudes → progress ·
+  a series → sparkline · a system or pipeline → flow ·
+  a day / list orbiting one center → plate (wild) ·
+  a felt arc or series-as-landscape → terrain (wild) ·
+  a mechanism whose shape IS the logic → its own geometry (wild) ·
+  an act intensifying inward, e.g. attention or listening → calligram (wild) ·
+  already said → the sentence.
+```
+
+Home is small; step out one notch at a time; the wild forms are the rare exception.
+Each lives in `forms/<name>.md` (the generator forms carry their own call snippet,
+so you needn't read `recipe-api.md` or `render.py` for a single form).
+
 ## References
 
 Lazy-load only when the task calls for it:
 
-- `references/materials-gallery.md` — golden input→ensoul pairs + worked examples; the material shelf. Load to choose a material or learn a form by imitation.
+- `forms/<name>.md` — the **form library** (worked examples). Runtime: load one (see Forms index). Install: read all.
+- `references/materials-gallery.md` — **material shelf + craft lineage** (read at install with `forms/`). The per-form worked examples now live in `forms/`.
 - `references/tufte-principles.md` · `references/analytical-design.md` — quantitative integrity, sparklines, dashboards, dense displays. (Truth.)
 - `references/visual-language-research-communication.md` — diagrams, networks, maps for explaining research, systems, or strategy.
 - `references/editorial-artifact-patterns.md` — editorial art direction, ornament-as-information, and the symbolic-mirror grammar. (Beauty.)
 - `references/visual-primitives.md` — reusable mark grammar and compositional primitives for inventing a new style.
 - `references/calibration-prompts.md` — the resonance gate: first-run prompts, failure modes, and `scripts/e2e`. Load when testing, tuning, or installing.
-- `recipes/render.py` — generators (alignment, surface attunement, magnitude/series, and wild `terrain`/`wave`/`orb`/`field`). Call them; don't hand-type. `recipes/test_render.py` covers them (run by `scripts/validate`).
+- `references/recipe-api.md` — the **calling surface** for the generators (signatures + when-to-use). Glance here and run them; **don't read `render.py`** (~4k tok) just to call it — read the source only to change a recipe.
+- `recipes/render.py` — generator implementations (alignment, surface attunement, magnitude/series, and wild `terrain`/`wave`/`orb`/`field`/`calligram`). Call via the cheatsheet; don't hand-type. `recipes/test_render.py` covers them (run by `scripts/validate`).
 
 Cross-agent: works in Claude (`/ensoul`) and Codex (`$ensoul`); mirror this folder into each agent's skills directory. This plain folder is the canonical source.

@@ -1,92 +1,146 @@
 # Resonance Gate
 
-**Glance at this before shipping a change to ensoul.** The validator proves the
-code is correct; this proves the *feel* is intact. Scan the six artifacts below —
-each is ensoul on a real wall of text. If they still land in one look, breathe, and
-feel alive, ship. If one went dense, generic, or wrong-formed, the soul slipped.
+**Glance at this before shipping a change to ensoul.** The validator proves the code
+is correct; this proves the *feel* is intact. Each panel below is ensoul on a real
+wall of text, produced by a **cold agent reading the skill** — install once, then one
+form per `/ensoul`. If they still land in one look, breathe, and feel alive, ship. If
+one went dense, generic, or wrong-formed, the soul slipped.
 
 Only Utsav marks this passed. The machine cannot certify resonance.
 
-Last refreshed: 2026-06-16, against the current workspace skill text.
+Last refreshed: 2026-06-16 — against the **per-form library** (`forms/<name>.md`,
+loaded one at a time at runtime; the whole library read at install). Every artifact
+below came from a fresh cold agent that navigated `SKILL.md` → the right form file.
 
-To refresh against current behavior: run `scripts/e2e` (it installs the skill into
-a jailed first-time config dir, drives a cold agent through install → configure →
-the six walls, asserts the deterministic floor, and writes a fresh panel), or
-re-run the golden walls in `skills/ensoul/references/calibration-prompts.md` by
-hand. Replace the panel below with the new artifacts, then judge.
+To refresh: re-run the golden walls in `references/calibration-prompts.md` by hand
+(one cold agent per form, fresh input, no coaching), or `scripts/e2e`. Replace the
+panel, run `recipes/token_cost.py`, then judge.
 
 ---
 
+## plain — restraint
+
+### 0 · clean status → the sentence (no artifact is a real output)
+```text
+  tests green. migration clean. the flaky test is the story.
+```
+
+---
+
+## balanced — the everyday forms
+
 ### 1 · a debug session → the trail
 ```text
-  BUG HUNT / THE FALSE CENTER
+  MEMORY LEAK / THE OBVIOUS SUSPECT
 
-  traffic bump ──●  load balancer? no.
-                 │
-  db pool     ──●  12 / 20 used. no.
-                 │
-  11:00       ──●  analytics job locks events ~30s
-                 │
-  checkout    ──●  cache the live read
-                 ╰─ 504s gone
+  image cache  ──●  cleared it. heap unchanged. no.
+                │
+  ws handlers  ──●  added counters. detaching fine. no.
+                │
+  modal mount  ──●  subscribes to store, never unsubscribes on close
+                │
+  cleanup      ──●  unsubscribe on unmount
+                ╰─ heap flattened
 
-  lesson: the loud event was not the causal one
+  lesson: the "obvious" theory held the chair too long
 ```
 
-### 2 · a 7-thread status → a card that keeps only the decisions
+### 2 · a 7-thread standup → a card that keeps only what needs you
 ```text
-  FRIDAY / WHAT NEEDS YOU
-  ─────────────────────────────────────────
-   ?  decide   when to kill PayPal parallel
-   ?  decide   auth refactor now, or wait
+  MONDAY / WHAT NEEDS YOU
+  ──────────────────────────────────────────────────────────
+   ?  decide   API redesign — version it, or break clients
+   ◆  hold     mobile port — premature; want to wait
 
-   ✕  blocked  mobile waits on API v2 / wed
-   ~  watch    onboarding +4%, email confusion
+   ✕  blocked  QA stalled on staging credentials
+   ~  watch    API redesign 60%, no contract decided
 
-   ✓  nearly   payments 80% / dashboard review
+   ✓  shipped  data export live, feedback good
 ```
 
-### 3 · an architecture wall → a braided river
+### 3 · a tradeoff across options → a table ("compared to what?")
 ```text
-  EVENTS / 200k min
-        │
-        ▼
-  gateway ──▶ kafka ──▶ dedupe ──▶ enrich
-  auth+rate       topic     redis      postgres replica
+  option              durable   ops burden   scale ceiling   lock-in
+  ──────────────────────────────────────────────────────────────────
+  Redis               ✕         low          high            low
+  SQS                 ✓         none          high            HIGH
+  Postgres-backed     ✓         low          ~few k/min      none
+```
+
+### 4 · several workstreams → progress, magnitude as ink
+```text
+  year-end goals
+
+  revenue             ██████████████████  110% +
+  hiring              ███████████░░░░░░░  60%
+  platform migration  █████░░░░░░░░░░░░░  30%
+  customer health     ██░░░░░░░░░░░░░░░░  10%
+```
+
+### 5 · a series → a generated sparkline
+```text
+  daily active users — finally catching
+
+  wk-start  ▁▁▁▂▄▅█  now          3.5× in 7 days
+            1200          4200
+```
+
+### 6 · a system → a braided flow
+```text
+  WEBHOOK
+      │
+      ▼
+  edge ──▶ queue ──▶ worker ──▶ postgres
+  sig verify    SQS/etc   validate + write
                                 │
-              ┌─────────────────┼─────────────────┐
-              ▼                 ▼                 ▼
-        timeseries          s3 lake          dead-letter
-        dashboards          history          retry /15m
-        0-30d               >30d
+                    ┌───────────┴───────────┐
+                    ▼                       ▼
+                  email                  slack
+                                │
+                    bad payload │
+                                ▼
+                          dead-letter
+                          inspect /day
 ```
 
-### 4 · a perf investigation → a frame with a generated sparkline
+---
+
+## wild — one striking image, the rare exception
+
+### 7 · a felt arc → a generated terrain
 ```text
-  SEARCH p99 · 6 weeks
-  ──────────────────────────────────────────────────────────────
-   p99 latency   ▁▁▂▃▅▆█   180 → 740 ms
-   index size    1.2M → 4.1M docs  as merchants onboarded
+  THE QUARTER / IT BUILT AND BUILT, THEN LANDED AND WENT QUIET
 
-   ◎  cause     wildcard match · cost scales with index
-   →  leaning   ngram analyzer · fast queries, ~2× ES storage
+                                                 ░
+                                               ░░▒░
+                                             ░░▒▒▓▒
+                                        ░░░░░▒▒▓▓█▓░
+                                      ░░▒▒▒▒▒▓▓████▒
+                               ░░░░░░░▒▒▓▓▓▓▓██████▓░
+                             ░░▒▒▒▒▒▒▒▓▓████████████▒░
+                     ░░░░░░░░▒▒▓▓▓▓▓▓▓██████████████▓▒░
+               ░░░░░░▒▒▒▒▒▒▒▒▓▓██████████████████████▓▒░░░
+░░░░░░░░░░░░░░░▒▒▒▒▒▒▓▓▓▓▓▓▓▓█████████████████████████▓▒▒▒░░░░░░
+  oct · slow start    nov · overdrive    DEC ▲ close    holidays · quiet
+  the surface is the quarter's effort · darkest = December's weight (dark-terminal)
 ```
 
-### 5 · launch week, wild dial → a generated tide
+### 8 · a day/week with a center → a plate
 ```text
-                                      ▼ THU · shipped
-                               ░░▒░   ░▒▒  ░
-                             ░▒▒▒▒▒░░▒▒▒▒▒▒▒▒
-                           ▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-                       ░░▒▒▒▓▓▓████▓▓▓███▓▓█▓
-      ░░░▒▒▒▒▒░░░▒▒▒▒▒▒▒▓▓▓▓█████████████████
-░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓██████████████████▒▒▒▒▒▒▒▒▒▒▒░░░
-──────────────────────────────────────────────────────────
-  MON          TUE            WED           THU           FRI
-  froze · staging fire · all-nighter · SHIP ──▶ calm: signups up, errors flat
+  +-- PLATE / THE WEEK HAS A CENTER --------------------+
+  |   MON    TUE     WED        THU                     |
+  |   prep   deck    rehearsal  lock numbers            |
+  |     \      \       | \          /                   |
+  |      `---.  `---.  dentist `----'                   |
+  |           +------------------+                      |
+  |           |   BOARD MEETING  |                      |
+  |           |     FRIDAY       |                      |
+  |           +------------------+                      |
+  |   the dentist is wednesday. it just happens.        |
+  +-----------------------------------------------------+
 ```
 
-### 6 · exponential backoff → a generated spiral
+### 9 · a mechanism → geometry that IS the algorithm
 ```text
   EXPONENTIAL BACKOFF
 
@@ -117,6 +171,29 @@ hand. Replace the panel below with the new artifacts, then judge.
         the gaps widen; that widening is the backoff
 ```
 
+### 10 · an act intensifying inward → a calligram (words as paint, void at center)
+```text
+                      waiting waiting waiting
+               waiting hearing hearing hearing hearing
+          waiting hearing words words words words hearing
+       waiting hearing words meaning meaning meaning words hearing
+    waiting hearing meaning FEELING FEELING FEELING meaning hearing
+   waiting hearing meaning FEELING PRESENCE PRESENCE meaning words
+ waiting hearing meaning                    PRESENCE FEELING words
+ waiting words meaning                         PRESENCE meaning words
+waiting hearing meaning                         PRESENCE meaning hearing
+ waiting words meaning                         PRESENCE meaning words
+ waiting hearing meaning                    PRESENCE FEELING words
+   waiting hearing meaning FEELING PRESENCE PRESENCE meaning words
+    waiting hearing meaning FEELING FEELING FEELING meaning hearing
+       waiting hearing words meaning meaning meaning words hearing
+          waiting hearing words words words words hearing
+               waiting hearing hearing hearing hearing
+                      waiting waiting waiting
+
+         an ear built from the act of listening — empty at its own center
+```
+
 ---
 
 ## The resonance checks
@@ -139,10 +216,9 @@ before shipping. The other three usually point at a fixable craft regression.
 ## Verdict
 
 ```text
-   recognition-passed-by-Utsav   ☑    (only Utsav checks this box)
-   last passed                   2026-06-16
-   notes                         verified via scripts/e2e: a cold agent, fresh
-                                 install, produced these on its own. deterministic
-                                 floor green (install · 3-dial render · defaults
-                                 persist · no box drift · forms correct).
+   recognition-passed-by-Utsav   ☑    (Utsav, 2026-06-16 — "lgtm")
+   panel                         2026-06-16 · post per-form-library migration
+   gate evidence                 11 cold agents, fresh inputs, each navigated
+                                 SKILL → the right forms/ file; plate routing
+                                 fixed; render suite green (56 checks).
 ```
